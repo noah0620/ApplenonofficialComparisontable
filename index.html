@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple製品 比較表</title>
+<style>
+:root{
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --line:#d2d2d7;
+  --bg:#f5f5f7;
+  --card:#fff;
+  --accent:#0071e3;
+  --old:#f8f8fa;
+  --new:#eef6ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Kaku Gothic ProN","Yu Gothic",Arial,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.65;
+}
+.container{max-width:1200px;margin:auto;padding:40px 20px 70px}
+h1{font-size:clamp(28px,4vw,46px);margin:0 0 10px;letter-spacing:-.03em}
+.lead{color:var(--muted);margin:0 0 35px}
+section{
+  background:var(--card);
+  border-radius:20px;
+  padding:26px;
+  margin:0 0 30px;
+  box-shadow:0 4px 18px rgba(0,0,0,.06);
+}
+h2{font-size:25px;margin:0 0 20px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:720px}
+th,td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;font-size:15px}
+thead th{font-weight:700;background:#fafafa;position:sticky;top:0;z-index:1}
+thead th:nth-child(2){background:var(--old)}
+thead th:nth-child(3){background:var(--new)}
+td:first-child{font-weight:600;width:24%}
+.old{background:var(--old)}
+.new{background:var(--new)}
+.change{font-weight:700;color:var(--accent)}
+.note{
+  margin-top:18px;
+  padding:15px 17px;
+  border-radius:12px;
+  background:#f5f5f7;
+  color:#515154;
+  font-size:13px;
+}
+.badge{
+  display:inline-block;
+  padding:3px 9px;
+  border-radius:999px;
+  background:#e8f2ff;
+  color:#0066cc;
+  font-size:12px;
+  font-weight:700;
+}
+ul{margin:0;padding-left:20px}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:30px}
+@media(max-width:700px){
+  .container{padding:24px 12px 50px}
+  section{padding:18px;border-radius:15px}
+  th,td{padding:10px}
+}
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#000;
+  color:#fff;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  min-height:58px;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.header-brand{
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:-.02em;
+  white-space:nowrap;
+}
+.jump-nav{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.jump-nav::-webkit-scrollbar{display:none}
+.jump-btn{
+  display:inline-block;
+  padding:8px 13px;
+  border:1px solid #3a3a3c;
+  border-radius:999px;
+  color:#fff;
+  background:#1d1d1f;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  white-space:nowrap;
+  transition:.2s ease;
+}
+.jump-btn:hover{background:#333336;border-color:#666}
+section{scroll-margin-top:78px}
+@media(max-width:700px){
+  .header-inner{padding:0 12px;min-height:52px}
+  .header-brand{font-size:14px}
+  .jump-btn{font-size:12px;padding:7px 11px}
+}
+
+
+/* 比較表下部：注記カード */
+.note-card{
+  margin-top:18px;
+  padding:18px 20px;
+  border:1px solid #e5e5e7;
+  border-radius:16px;
+  background:#fafafa;
+}
+.note-card-title{
+  font-size:15px;
+  font-weight:700;
+  margin:0 0 8px;
+}
+.note-card p{
+  margin:5px 0;
+  color:#515154;
+  font-size:13px;
+}
+.access-card{
+  margin-top:14px;
+  padding:18px 20px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#1d1d1f,#3a3a3c);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.access-card-text{min-width:0}
+.access-card-label{
+  margin:0 0 3px;
+  font-size:11px;
+  opacity:.65;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.access-card-title{
+  margin:0;
+  font-size:16px;
+  font-weight:700;
+}
+.access-btn{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:120px;
+  padding:10px 16px;
+  border-radius:999px;
+  background:#fff;
+  color:#1d1d1f;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+}
+.access-btn:hover{opacity:.85}
+@media(max-width:700px){
+  .access-card{align-items:flex-start;flex-direction:column}
+  .access-btn{width:100%}
+}
+
+.note-detail{
+  display:none;
+  margin-top:14px;
+  padding:20px;
+  border:1px solid #e5e5e7;
+  border-radius:16px;
+  background:#fff;
+}
+.note-detail.open{
+  display:block;
+  animation:noteDetailOpen .2s ease;
+}
+.note-detail h3{
+  margin:0 0 12px;
+  font-size:20px;
+}
+.note-detail .note-detail-body{
+  color:#515154;
+  font-size:13px;
+  line-height:1.8;
+}
+@keyframes noteDetailOpen{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="header-brand" href="#">Apple 比較表</a>
+    <nav class="jump-nav" aria-label="比較表へのジャンプ">
+      <a class="jump-btn" href="#airpods">AirPods</a>
+      <a class="jump-btn" href="#applewatch">Apple Watch</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <h1>Apple製品 比較表</h1>
+  <p class="lead">Nonofficial </p>
+
+  <section id="applewatch">
+    <h2>Apple Watch Ultra 4 vs Ultra 3</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>項目</th><th>Apple Watch Ultra 3</th><th>Apple Watch Ultra 4</th></tr></thead>
+      <tbody>
+        <tr><td>チップ</td><td class="old">S10</td><td class="new change">S11</td></tr>
+        <tr><td>心拍数</td><td class="old">—</td><td class="new change">高い頻度で測定</td></tr>
+        <tr><td>オーディオインテリジェンス</td><td class="old">—</td><td class="new change">対応<sup>10</sup></td></tr>
+        <tr><td>ジェスチャー</td><td class="old">ダブルタップ</td><td class="new change">シングルタップ＋ダブルタップ</td></tr>
+        <tr><td>通常時バッテリー</td><td class="old">最大42時間<sup>24</sup><td class="new change">最大50時間<sup>21</sup></td></tr>
+        <tr><td>低電力モード</td><td class="old">最大72時間</td><td class="new change">最大84時間</td></tr>
+        <tr><td>急速充電</td><td class="old">約45分で0から80％充電<br>15分充電で最大12時間</td><td class="new change">約45分で0から80％充電<br>15分充電で最大18時間</br></td></tr>
+        <tr><td>サイズ</td><td class="old">49 × 44 × 12mm</td><td class="new">49 × 44 × 12mm</td></tr>
+        <tr>
+    <td rowspan="2">
+        重量<br>
+        ・ナチュラルチタニウム<br><br>
+        ・ブラックチタニウム
+    </td>
+
+    <td class="old">61.6g</td>
+    <td class="new">63.0g</td>
+</tr>
+
+<tr>
+    <td class="old">61.8g</td>
+    <td class="new">63.1g</td>
+</tr>
+        <tr><td>裏蓋素材</td><td class="old">セラミック＋サファイアクリスタル</td><td class="new change">セラミック＋ジルコニア</td></tr>
+        <tr><td>耐久性</td><td class="old">一世代前のアルミニウムケースのモデルと比べて2倍の耐擦傷性能を持つIon-Xガラス<sup>66</sup><br>丈夫なサファイアクリスタルディスプレイとチタニウムケース</br> <td class="new change">一世代前のモデルのIon-Xガラスと比べて60%頑丈なCeramic Shield 2（アルミニウムケース）<sup>64</sup><br>頑丈なサファイアクリスタルディスプレイ（チタニウムケース、セラミックケース）</br>
+      <tr><td>システム</td><td class="old">—</td><td class="new change">ヘルスセンシングシステム</td></tr>
+        <tr><td>健康・ウェルネス</td><td class="old">—</td><td class="new change">準備度アプリ</td></tr>
+        <tr><td>高血圧パターン通知</td><td class="old">あり</td><td class="new change">ー</td></tr>
+        <tr><td>屋外ワークアウト</td><td class="old">—</td><td class="new change">最大18時間</td></tr>
+      </tbody>
+    </table>
+    </div>
+     <div class="note"><span class="badge">注意</span> ケースサイズは同一のため、これまでのケースを汎用的に使用可能。バッテリー値は記載されたテスト条件に基づく最大値です。</div>
+<div class="access-card">
+  <div class="access-card-text">
+    <p class="access-card-label">Apple Watch Ultra</p>
+    <p class="access-card-title">詳細表示</p>
+  </div>
+  <button class="access-btn" type="button"
+          onclick="toggleNote('applewatch-notes', this)"
+          aria-expanded="false">
+    アクセス →
+  </button>
+</div>
+
+<div id="applewatch-notes" class="note-detail" aria-hidden="true">
+  <h3>Apple Watch Ultra 4 vs Ultra 3 の注意書き</h3>
+  <div class="note-detail-body">
+    <p>
+      <br>※10:オーディオインテリジェンスには現在、サウンド認識とより速くアクセスできるShazamが含まれています。利用するにはApple Watch Series 12またはApple Watch Ultra 4が必要です。</br>
+
+      <br>※21：バッテリー駆動時間（約2日間）のテストには、50時間の間に630回の時刻チェック、190回の通知、30分間のアプリ使用、Apple WatchからBluetooth経由で音楽を再生しながらの60分間のワークアウト（2回）、12時間の睡眠記録が含まれています。Apple Watch Ultra 4の使用条件には、50時間の間に合計10時間のモバイル通信接続と40時間のBluetooth経由でのiPhoneへの接続が含まれています。低電力モードでのバッテリー駆動時間のテストには、84時間の間に1,100回の時刻チェック、330回の通知、55分間のアプリ使用、Apple WatchからBluetooth経由で音楽を再生しながらの60分間のワークアウト（2回）、18時間の睡眠記録が含まれています。Apple Watch Ultra 4の使用条件には、84時間の間に必要に応じたモバイル通信接続と68時間のBluetooth経由でのiPhoneへの接続が含まれています。テストはiPhoneとペアリングしたApple Watch Ultra 4の試作ハードウェアを使用し、2026年7月と8月にAppleが実施しました。すべてのデバイスはリリース前のソフトウェアを使ってテストしました。バッテリー駆動時間は使用条件、構成、モバイル通信ネットワーク、信号強度、その他の多くの要素によって変わり、実際の結果は異なる場合があります。</br>
+
+      <br>※24：睡眠記録を含むバッテリー駆動時間（約2日間）は、42時間の間に600回の時刻チェック、180回の通知、30分間のアプリ使用、Apple WatchからBluetooth経由で音楽を再生しながらの60分間のワークアウト、6時間の睡眠記録を行った場合にもとづきます。Apple Watch Ultra 3の使用条件には、42時間の間に合計8時間のモバイル通信接続と34時間のBluetooth経由でのiPhoneへの接続が含まれています。睡眠記録を含む低電力モードでのバッテリー駆動時間は、72時間の間に900回の時刻チェック、270回の通知、45分間のアプリ使用、Apple WatchからBluetooth経由で音楽を再生しながらの60分間のワークアウトを2回、18時間の睡眠記録を行った場合にもとづきます。Apple Watch Ultra 3の使用条件には、72時間の間に必要に応じたモバイル通信接続と60時間のBluetooth経由でのiPhoneへの接続が含まれています。テストはiPhoneとペアリングしたApple Watch Ultra 3の試作ハードウェアを使用し、2025年7月と8月にAppleが実施しました。すべてのデバイスはリリース前のソフトウェアを使ってテストしました。バッテリー駆動時間は使用条件、構成、モバイル通信ネットワーク、信号強度、その他の多くの要素によって変わり、実際の結果は異なる場合があります。</br>
+
+      <br>※64:Apple Watch Series 12のCeramic Shield 2（アルミニウムケース）は、Apple Watch Series 11のIon-Xガラスとの比較で60%頑丈です。</br>
+
+      <br>※66:Ion-Xガラスを採用したApple Watch Series 11のセラミックコーティングには、Ion-Xガラスを採用したApple Watch Series 10との比較で2倍の耐擦傷性能があります。</br>
+
+     <br>※71：Appleの規制物質仕様書で、Appleの製品、アクセサリ、製造プロセス、エンドユーザーへの製品出荷用パッケージに含まれる素材において、Appleが使用を制限する特定の化学物質を説明しています。この制限は、国際的な法令または指令、規制当局、エコラベルの要件、環境基準、Appleのポリシーにもとづきます。すべてのApple製品でPVCとフタル酸エステルを使用していません。ただし、インド、タイ、韓国を除きます。これらの国ではAC電源コード（タイでは2ピンAC電源コード）にPVCとフタル酸エステルが使われており、代替物質の政府認可申請を続けています。Apple製品は、欧州連合指令2011/65/EUとその改正条項（高温のはんだなど、鉛の使用の適用除外を含む）に準拠しています。技術的に可能な場合は、こうした適用除外物質の新製品への使用を段階的に廃止できるよう取り組みを進めています。</br>
+   </p>
+  </div>
+</div>
+  </section>
+
+  <section>
+    <h2>Apple Watch Series 12 vs Series 11</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>項目</th><th>Apple Watch Series 11</th><th>Apple Watch Series 12</th></tr></thead>
+      <tbody>
+        <tr><td>チップ</td><td class="old">S10</td><td class="new change">S11</td></tr>
+        <tr><td>オーディオインテリジェンス</td><td class="old">—</td><td class="new change">対応<sup>10</sup></td></tr>
+        <tr><td>GPS</td><td class="old">—</td><td class="new change">L1高精度GPSに強化</td></tr>
+        <tr><td>ジェスチャー</td><td class="old">ダブルタップ</td><td class="new change">シングルタップ＋ダブルタップ</td></tr>
+        <tr><td>ケース素材</td><td class="old">アルミニウム、チタニウム</td><td class="new change">アルミニウム、チタニウム、セラミック</td></tr>
+        <tr>
+    <td rowspan="3">
+        カラー<br>
+        ・アルミニウムケース<br><br><br>
+        ・チタニウムケース<br><br><br>
+        ・セラミックケース
+    </td>
+
+    <td class="old">ジェットブラック、ローズゴールド、シルバー、スペースグレイ</td>
+    <td class="new">ダークブロンズ、ライトゴールド、ブラック、スペースグレイ</td>
+</tr>
+
+<tr>
+    <td class="old">ラディアントゴールド、ナチュラル</td>
+    <td class="new">スレート、ゴールド、ナチュラル</td>
+</tr>
+<tr>
+    <td class="old">ー</td>
+    <td class="new">パールホワイト、ナイトブルー</td>
+</tr>
+        <tr><td>46mmサイズ</td><td class="old">46 × 39 × 9.7mm</td><td class="new change">46 × 40 × 9.7mm</td></tr>
+        <tr><td>46mmセラミック</td><td class="old">—</td><td class="new change">47 × 41 × 9.85mm</td></tr>
+        <tr><td>42mmサイズ</td><td class="old">42 × 36 × 9.7mm</td><td class="new change">42 × 37 × 9.7mm</td></tr>
+        <tr><td>42mmセラミック</td><td class="old">—</td><td class="new change">43 × 37 × 9.85mm</td></tr>
+        <tr><td>重量（46mm・アルミ GPS）</td><td class="old">37.8g</td><td class="new">39.5g</td></tr>
+        <tr><td>重量（46mm・アルミ GPS + Cellular）</td><td class="old">36.9g</td><td class="new">38.6g</td></tr>
+        <tr><td>重量（46mm・チタニウム）</td><td class="old">43.1g</td><td class="new">44.9g</td></tr>
+        <tr><td>重量（42mm・アルミ GPS）</td><td class="old">30.3g</td><td class="new">32.2g</td></tr>
+        <tr><td>重量（42mm・アルミ GPS + Cellular）</td><td class="old">29.7g</td><td class="new">31.5g</td></tr>
+        <tr><td>重量（42mm・チタニウム）</td><td class="old">34.6g</td><td class="new">36.5g</td></tr>
+        <tr><td>セラミック重量</td><td class="old">—</td><td class="new change">46mm：51.3g / 52.9g<br>42mm：41.7g / 42.8g</td></tr>
+        <tr><td>ヘルスセンシング</td><td class="old">—</td><td class="new change">ヘルスセンシングシステム追加</td></tr>
+        <tr><td>準備度アプリ</td><td class="old">—</td><td class="new change">追加</td></tr>
+        <tr><td>高血圧パターン通知</td><td class="old">あり</td><td class="new change">ー</td></tr>
+        <tr><td>屋外ワークアウト</td><td class="old">—</td><td class="new change">最大10時間</td></tr>
+
+      </tbody>
+    </table>
+    <div class="note"><span class="badge">注意</span> 46mm・42mmとも寸法が変更されているため、旧モデル用のケースやフィルムが合わない可能性があります。新たにセラミックケースが追加されています。</div>
+<div class="access-card">
+  <div class="access-card-text">
+    <p class="access-card-label">Apple Watch Series</p>
+    <p class="access-card-title">詳細表示</p>
+  </div>
+  <button class="access-btn" type="button"
+          onclick="toggleNote('series-notes', this)"
+          aria-expanded="false">
+    アクセス →
+  </button>
+</div>
+
+<div id="series-notes" class="note-detail" aria-hidden="true">
+  <h3>Apple Watch Series 12 vs Series 11の注意書き</h3>
+  <div class="note-detail-body">
+    <p>
+      <br>※10:オーディオインテリジェンスには現在、サウンド認識とより速くアクセスできるShazamが含まれています。利用するにはApple Watch Series 12またはApple Watch Ultra 4が必要です。</br>
+
+   </p>
+  </div>
+</div>
+  </section>
+
+  <section id="airpods">
+    <h2>AirPods 5 vs AirPods 4</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>項目</th><th>AirPods 4</th><th>AirPods 5</th></tr></thead>
+      <tbody>
+        <tr><td>アクティブノイズキャンセリング<sup>1</sup></td><td class="old">搭載モデルあり</td><td class="new change">最大1.5倍（ANC搭載AirPods 4比）</td></tr>
+        <tr><td>適応型オーディオ<sup>6</sup></td><td class="old">—</td><td class="new change">対応<sup>6</sup></td></tr>
+        <tr><td>外部音取り込み<sup>7</sup></td><td class="old">—</td><td class="new change">対応</td></tr>
+        <tr><td>会話感知</td><td class="old">—</td><td class="new change">対応<sup>6</sup></td></tr>
+        <tr><td>ライブ翻訳</td><td class="old">—</td><td class="new change">対応<sup>13</sup></td></tr>
+        <tr><td>Siri AI</td><td class="old">—</td><td class="new change">対応<sup>14</sup></td></tr>
+        <tr><td>感圧センサー</td><td class="old">感圧センサー</td><td class="new change">再生・通話操作に対応</td></tr>
+        <tr><td>1回の充電</td><td class="old">最大5時間</td><td class="new change">最大4時間（ANC有効時）<sup>29</sup></td></tr>
+        <tr><td>充電ケース込み</td><td class="old">最大30時間<sup>15</sup></td><td class="new change">最大20時間<sup>31</sup></td></tr>
+        <tr><td>防塵・耐汗耐水</td><td class="old">IP54<sup>20</sup></td><td class="new change">IP57<sup>19</sup></td></tr>
+        <tr><td>サイズ・重量</td><td class="old">—</td><td class="new">AirPods 4から変更なし</td></tr>
+        <tr><td>5分充電</td><td class="old">約1時間</td><td class="new">約1時間</td></tr>
+        <tr><td>USB-C充電ケーブル</td><td class="old">別売り</td><td class="new change">別売り</td></tr>
+      </tbody>
+    </table>
+   <div class="note"><span class="badge">注意</span>  ケースサイズは同一のため、これまでのケースを汎用的に使用可能。バッテリー値は記載されたテスト条件に基づく最大値です。</div>
+<div class="access-card">
+  <div class="access-card-text">
+    <p class="access-card-label">AirPods 5</p>
+    <p class="access-card-title">詳細表示</p>
+  </div>
+  <button class="access-btn" type="button"
+          onclick="toggleNote('airpods-notes', this)"
+          aria-expanded="false">
+    アクセス →
+  </button>
+</div>
+
+<div id="airpods-notes" class="note-detail" aria-hidden="true">
+  <h3>AirPods 5 vs AirPods 4 の注意書き</h3>
+  <div class="note-detail-body">
+    <p>
+      <br>
+      ※１：最大1.5倍のアクティブノイズキャンセリングは、IEC 60268-24の規格に従ってアクティブノイズキャンセリング搭載AirPods 4と比較したテスト結果によります。
+      <br>
+
+※６：最新のオペレーティングシステムソフトウェアを搭載した対応するApple製デバイスが必要です。
+<br>
+※７：アクティブノイズキャンセリング、適応型オーディオ、外部音取り込みなど、デバイスのパフォーマンスとノイズコントロールに関する機能は、ゴミや耳あかの蓄積の影響を受ける場合があります。パフォーマンスを維持して機能を十分に発揮できるように、デバイスを定期的にクリーニングしてください。AirPodsのクリーニングの方法についてはsupport.apple.com/ja﻿-﻿jp/102672をご覧ください。AirPods Proのクリーニングの方法についてはsupport.apple.com/ja﻿-﻿jp/120409をご覧ください。
+<br>
+※１３：最新のオペレーティングシステムソフトウェアを搭載した対応するApple製デバイスを、最新のファームウェアを実装した対応するAirPodsとペアリングし、Apple Intelligenceをオンにした場合に利用できます。ベータ版で利用できます。地域や言語によっては一部の機能を利用できない場合があります。詳しくは利用できる機能をご覧ください。
+<br>
+※１４：Apple Intelligenceは、Siriとデバイスの言語を日本語、中国語（簡体字）、中国語（繁体字）、デンマーク語、オランダ語、英語、フランス語、ドイツ語、イタリア語、韓国語、ノルウェー語、ポルトガル語、スペイン語、スウェーデン語、トルコ語、またはベトナム語に設定した場合に利用できます。地域や言語によっては一部の機能を利用できない場合があります。地域によっては一部のデバイスを利用できない場合があります。Siri AIはiOS 27、macOS 27、watchOS 27でベータ版で利用できます。Apple Intelligenceを有効にしたデバイスを対応言語に設定する必要があります。最初は英語で利用できます。日本語には年内に対応する予定です。EUにおいては、初期段階ではSiri AIをiOS、iPadOS、watchOSで利用できません。Siri AI、インテリジェントな写真編集ツール、Image Playground、ショートカットのAFM 3 Cloudモデルなど、サーバサイドモデルに依存する一部のApple Intelligenceの機能には、1日の使用回数の制限が適用されます。1日あたりの制限は、機能、リクエストの複雑さ、システムへの負荷、システムポリシー、その他の要因によって異なる場合があります。当該機能へのアクセスは今後、有料で拡大する予定です。これらの機能の使用にはApple Intelligenceの規約が適用されます。詳しくはapple.com/jp/apple﻿-﻿intelligenceをご覧ください。Siri AIへのハンズフリーアクセスには、すべてのAirPodsが対応しま﻿す﻿。
+<br>
+※１５：バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わります。アクティブノイズキャンセリング搭載AirPods 4は、アクティブノイズキャンセリングをオフにしてテストしまし﻿た﻿
+<br>
+※１９：製品には防塵性能と耐汗耐水性能があります。水上または水中でのスポーツやエクササイズには対応しません。充電ケースを含む製品は実験室の管理された条件下でテストされています。AirPods 5とAirPods Pro 3はIEC規格60529にもとづくIP57等級、AirPods Pro 2はIP54等級に適合しています。防塵性能と耐汗耐水性能は永続的に維持されるものではなく、通常の使用によって耐性が低下する可能性があります。濡れている場合は充電しないでください。クリーニングと乾燥の方法についてはsupport.apple.com/ja﻿-﻿jp/HT210711をご覧くださ﻿い﻿。
+<br>
+※２０：AirPods 4とアクティブノイズキャンセリング搭載AirPods 4には防塵性能と耐汗耐水性能があります。水上または水中でのスポーツやエクササイズには対応しません。充電ケースを含む製品は実験室の管理された条件下でテストされており、IEC規格60529にもとづくIP54等級に適合しています。防塵性能と耐汗耐水性能は永続的に維持されるものではなく、通常の使用によって耐性が低下する可能性があります。濡れている場合は充電しないでください。クリーニングと乾燥の方法についてはsupport.apple.com/ja﻿-﻿jp/HT210711をご覧くださ﻿い﻿。
+<br>
+※２６：サイズと重量は構成と製造工程によって異なります。
+<br>
+※２９：iPhone 18 Proの試作ハードウェアとペアリングしたAirPods 5の試作ハードウェアを使用し、2026年7月と8月にAppleが実施したテスト結果によります。いずれもリリース前のソフトウェアを使用しました。オーディオの再生には、iTunes Storeで購入した358の個別のオーディオトラック（256Kbps AACエンコーディング）により構成されたプレイリストを使用しました。音量は50%に設定し、空間オーディオと会話感知はオフ、ノイズコントロールはアクティブノイズキャンセリングに設定しました。ノイズコントロールをオフにした場合の再生時間は最大6時間でした。テストではAirPodsのバッテリーをフル充電し、片方のAirPodsが停止するまでオーディオ再生を行いました。バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わりま﻿す﻿。
+<br>
+※３１：iPhone 18 Proの試作ハードウェアとペアリングしたAirPods 5の試作ハードウェア、充電ケースを使用し、2026年7月と8月にAppleが実施したテスト結果によります。いずれもリリース前のソフトウェアを使用しました。オーディオの再生には、iTunes Storeで購入した358の個別のオーディオトラック（256Kbps AACエンコーディング）により構成されたプレイリストを使用しました。音量は50%に設定し、空間オーディオと会話感知はオフ、ノイズコントロールはアクティブノイズキャンセリングに設定しました。テストではAirPodsのバッテリーをフル充電し、片方のAirPodsが停止するまでオーディオ再生を行いました。バッテリーを完全に消費したAirPodsを100%まで充電し、片方のAirPodsが停止するまでオーディオ再生を続けました。AirPodsと充電ケース両方のバッテリーを完全に使い切るまで、このサイクルを繰り返しました。バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わりま﻿す﻿。
+<br>
+※３３：iPhone 18 Proの試作ハードウェアとペアリングしたAirPods 5の試作ハードウェア、充電ケースを使用し、2026年7月と8月にAppleが実施したテスト結果によります。いずれもリリース前のソフトウェアを使用しました。オーディオの再生には、iTunes Storeで購入した358の個別のオーディオトラック（256Kbps AACエンコーディング）により構成されたプレイリストを使用しました。音量は50%に設定し、空間オーディオ、会話感知、ノイズコントロールはすべてオフにしました。5分充電のテストでは、バッテリーを完全に消費したAirPodsを5分間充電し、片方のAirPodsが停止するまでオーディオ再生を行いました。バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わりま﻿す﻿。
+
+   </p>
+  </div>
+
+  </section>
+
+  <section>
+    <h2>ワイヤレス充電ケース付き AirPods 5 vs AirPods 5</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>項目</th><th>AirPods 5</th><th>ワイヤレス充電ケース付き AirPods 5</th></tr></thead>
+      <tbody>
+        <tr><td>感圧センサー</td><td class="old">再生・通話を操作</td><td class="new change">再生・通話操作＋音量スワイプ</td></tr>
+        <tr><td>ANC時の1回充電</td><td class="old">最大4時間<sup>29</sup></td><td class="new change">最大5時間<sup>30</sup></td></tr>
+        <tr><td>充電ケース使用時</td><td class="old">最大20時間<sup>31</sup></td><td class="new change">最大22時間<sup>32</sup></td></tr>
+        <tr><td>充電ケース</td><td class="old">USB-C<sup>16</sup></td><td class="new change">ワイヤレス充電ケース（USB-C）</td></tr>
+        <tr><td>「探す」用スピーカー<sup>17</sup></td><td class="old">—</td><td class="new change">搭載</td></tr>
+        <tr><td>Apple Watch充電器</td><td class="old">—</td><td class="new change">対応</td></tr>
+        <tr><td>Qi充電器</td><td class="old">—</td><td class="new change">対応<sup>18</sup></td></tr>
+        <tr><td>MagSafe充電</td><td class="old">—</td><td class="new change">対応</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><span class="badge">注意</span>  ケースサイズは同一のため、これまでのケースを汎用的に使用可能。バッテリー値は記載されたテスト条件に基づく最大値です。</div>
+    <div class="access-card">
+      <div class="access-card-text">
+        <p class="access-card-label">AirPods 5</p>
+        <p class="access-card-title">詳細表示</p>
+      </div>
+      <button class="access-btn" type="button"
+              onclick="toggleNote('airpods-wireless-notes', this)"
+              aria-expanded="false">
+        アクセス →
+      </button>
+    </div>
+
+    <div id="airpods-wireless-notes" class="note-detail" aria-hidden="true">
+      <h3>ワイヤレス充電ケース付き AirPods 5 の注意書き</h3>
+      <div class="note-detail-body">
+        <p>
+          <br>※１６：充電には対応するUSB-C充電器が必要で﻿す﻿
+<br>
+※１７：「探す」機能を利用するにはiOS 27以降が必要です。
+<br>
+※１８：USB-C充電には対応するUSB-C充電器が必要です。ワイヤレス充電にはQi規格のワイヤレス充電器が必要です。MagSafe充電には対応するMagSafe充電器が必要です。ワイヤレス充電ケース付きAirPods 5、アクティブノイズキャンセリング搭載AirPods 4、AirPods Pro 2、AirPods Pro 3の充電ケースは、Apple Watchの充電器にも対応しま﻿す﻿。
+<br>
+※２９：iPhone 18 Proの試作ハードウェアとペアリングしたAirPods 5の試作ハードウェアを使用し、2026年7月と8月にAppleが実施したテスト結果によります。いずれもリリース前のソフトウェアを使用しました。オーディオの再生には、iTunes Storeで購入した358の個別のオーディオトラック（256Kbps AACエンコーディング）により構成されたプレイリストを使用しました。音量は50%に設定し、空間オーディオと会話感知はオフ、ノイズコントロールはアクティブノイズキャンセリングに設定しました。ノイズコントロールをオフにした場合の再生時間は最大6時間でした。テストではAirPodsのバッテリーをフル充電し、片方のAirPodsが停止するまでオーディオ再生を行いました。バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わりま﻿す﻿。
+<br>
+※３０：iPhone 18 Proの試作ハードウェアとペアリングしたワイヤレス充電ケース付きAirPods 5の試作ハードウェアを使用し、2026年7月と8月にAppleが実施したテスト結果によります。いずれもリリース前のソフトウェアを使用しました。オーディオの再生には、iTunes Storeで購入した358の個別のオーディオトラック（256Kbps AACエンコーディング）により構成されたプレイリストを使用しました。音量は50%に設定し、空間オーディオと会話感知はオフ、ノイズコントロールはアクティブノイズキャンセリングに設定しました。ノイズコントロールをオフにした場合の再生時間は最大7時間でした。テストではAirPodsのバッテリーをフル充電し、片方のAirPodsが停止するまでオーディオ再生を行いました。バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わりま﻿す﻿。
+<br>
+※３１：iPhone 18 Proの試作ハードウェアとペアリングしたAirPods 5の試作ハードウェア、充電ケースを使用し、2026年7月と8月にAppleが実施したテスト結果によります。いずれもリリース前のソフトウェアを使用しました。オーディオの再生には、iTunes Storeで購入した358の個別のオーディオトラック（256Kbps AACエンコーディング）により構成されたプレイリストを使用しました。音量は50%に設定し、空間オーディオと会話感知はオフ、ノイズコントロールはアクティブノイズキャンセリングに設定しました。テストではAirPodsのバッテリーをフル充電し、片方のAirPodsが停止するまでオーディオ再生を行いました。バッテリーを完全に消費したAirPodsを100%まで充電し、片方のAirPodsが停止するまでオーディオ再生を続けました。AirPodsと充電ケース両方のバッテリーを完全に使い切るまで、このサイクルを繰り返しました。バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わりま﻿す﻿。
+<br>
+※３２：iPhone 18 Proの試作ハードウェアとペアリングしたワイヤレス充電ケース付きAirPods 5の試作ハードウェアを使用し、2026年7月と8月にAppleが実施したテスト結果によります。いずれもリリース前のソフトウェアを使用しました。オーディオの再生には、iTunes Storeで購入した358の個別のオーディオトラック（256Kbps AACエンコーディング）により構成されたプレイリストを使用しました。音量は50%に設定し、空間オーディオと会話感知はオフ、ノイズコントロールはアクティブノイズキャンセリングに設定しました。テストではAirPodsのバッテリーをフル充電し、片方のAirPodsが停止するまでオーディオ再生を行いました。バッテリーを完全に消費したAirPodsを100%まで充電し、片方のAirPodsが停止するまでオーディオ再生を続けました。AirPodsと充電ケース両方のバッテリーを完全に使い切るまで、このサイクルを繰り返しました。バッテリー駆動時間はデバイスの設定、環境、使用方法、その他の多くの要素によって変わりま﻿す﻿。
+
+</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>このページは、Apple.comのデータベースを参照しています。</footer>
+</div>
+
+<script>
+function toggleNote(id, button){
+  const note = document.getElementById(id);
+  if(!note) return;
+
+  const isOpen = note.classList.contains("open");
+
+  // 同じsection内の詳細欄を閉じて、重複表示を防止
+  const section = button.closest("section");
+  if(section){
+    section.querySelectorAll(".note-detail.open").forEach(item => {
+      item.classList.remove("open");
+      item.setAttribute("aria-hidden", "true");
+    });
+
+    section.querySelectorAll(".access-btn[aria-expanded='true']").forEach(btn => {
+      btn.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  if(!isOpen){
+    note.classList.add("open");
+    note.setAttribute("aria-hidden", "false");
+    button.setAttribute("aria-expanded", "true");
+
+    requestAnimationFrame(() => {
+      note.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  }
+}
+</script>
+
+</body>
+</html>
