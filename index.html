@@ -211,9 +211,537 @@ section{scroll-margin-top:78px}
   to{opacity:1;transform:translateY(0)}
 }
 
+
+/* =================================
+   JANコード 詳細表示
+================================= */
+.jan-link{
+  appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#0071e3;
+  font:inherit;
+  font-weight:700;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  cursor:pointer;
+}
+.jan-link:hover{opacity:.72}
+.jan-hint{
+  display:block;
+  margin-top:4px;
+  color:#6e6e73;
+  font-size:11px;
+  font-weight:400;
+}
+.jan-detail{
+  display:none;
+  margin-top:10px;
+  padding:12px 14px;
+  border:1px solid #d2d2d7;
+  border-radius:12px;
+  background:#fff;
+  color:#1d1d1f;
+  font-size:13px;
+  line-height:1.7;
+}
+.jan-detail.open{display:block}
+.jan-detail strong{display:inline-block;min-width:68px}
+
+
+/* =================================
+   Apple Watch Ultra 3 JAN一覧
+   タレントカード風
+================================= */
+.compare-title-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:0 0 20px;
+}
+.compare-title-row h2{
+  margin:0;
+}
+.jan-list-open-btn{
+  flex:0 0 auto;
+  border:0;
+  border-radius:999px;
+  padding:10px 16px;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s ease;
+  white-space:nowrap;
+}
+.jan-list-open-btn:hover{
+  transform:translateY(-1px);
+  background:#333;
+}
+
+.jan-list-panel{
+  display:none;
+  margin:0 0 22px;
+  padding:18px;
+  border:1px solid #e5e5e7;
+  border-radius:18px;
+  background:#f5f5f7;
+}
+.jan-list-panel.open{
+  display:block;
+  animation:janPanelOpen .2s ease;
+}
+@keyframes janPanelOpen{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.jan-list-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:15px;
+}
+.jan-list-head h3{
+  margin:0;
+  font-size:18px;
+}
+.jan-list-close{
+  border:0;
+  border-radius:999px;
+  padding:8px 12px;
+  background:#fff;
+  color:#1d1d1f;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.jan-card-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.jan-product-card{
+  overflow:hidden;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.10);
+  border:1px solid #ececef;
+}
+.jan-card-visual{
+  min-height:115px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:linear-gradient(135deg,#f7f7f8,#e9e9ec);
+  font-size:40px;
+}
+.jan-card-body{
+  padding:16px;
+}
+.jan-card-model{
+  margin:0 0 4px;
+  font-size:11px;
+  color:#6e6e73;
+}
+.jan-card-name{
+  margin:0 0 12px;
+  font-size:17px;
+  font-weight:800;
+}
+.jan-card-row{
+  display:flex;
+  gap:10px;
+  padding:8px 0;
+  border-top:1px solid #eee;
+  font-size:12px;
+}
+.jan-card-row span:first-child{
+  width:58px;
+  flex:0 0 58px;
+  color:#86868b;
+}
+.jan-number{
+  font-weight:800;
+  letter-spacing:.04em;
+  word-break:break-all;
+}
+.jan-unregistered{
+  color:#b54708;
+  font-weight:700;
+}
+.jan-card-note{
+  margin-top:12px;
+  color:#6e6e73;
+  font-size:11px;
+  line-height:1.6;
+}
+
+@media(max-width:700px){
+  .compare-title-row{
+    align-items:flex-start;
+  }
+  .compare-title-row h2{
+    font-size:21px;
+    line-height:1.4;
+  }
+  .jan-list-open-btn{
+    padding:9px 12px;
+    font-size:11px;
+  }
+  .jan-card-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* =================================
+   統合JANコードページ
+================================= */
+#janPage{
+  display:none;
+  min-height:100vh;
+  background:#f5f5f7;
+  color:#1d1d1f;
+}
+#janPage.active{display:block}
+#comparisonPage.hidden-page{display:none!important}
+.jan-page-header{
+  position:sticky;
+  top:0;
+  z-index:1200;
+  background:#000;
+  color:#fff;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+.jan-page-header-inner{
+  max-width:1100px;
+  margin:auto;
+  min-height:58px;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.jan-page-brand{font-weight:800;letter-spacing:-.02em}
+.jan-back-btn{
+  color:#fff;
+  border:1px solid #3a3a3c;
+  background:#1d1d1f;
+  border-radius:999px;
+  padding:8px 13px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+.jan-container{max-width:1100px;margin:auto;padding:34px 20px 70px}
+.jan-hero{
+  background:#fff;border-radius:22px;padding:28px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);margin-bottom:22px;
+}
+.jan-hero h1{font-size:clamp(28px,4vw,42px);margin:0 0 8px}
+.jan-hero p{margin:0;color:#6e6e73;font-size:13px}
+.jan-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 18px}
+.jan-tab-btn{
+  border:1px solid #d2d2d7;background:#fff;color:#1d1d1f;border-radius:999px;
+  padding:10px 16px;font-weight:800;cursor:pointer;
+}
+.jan-tab-btn.active{background:#111;color:#fff;border-color:#111}
+.jan-type-panel{display:none}
+.jan-type-panel.active{display:block}
+.jan-size-section{
+  background:#fff;border-radius:20px;padding:22px;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);margin-bottom:22px;
+}
+.jan-size-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.jan-size-title h2{margin:0;font-size:22px}
+.jan-size-title span{color:#6e6e73;font-size:12px}
+.jan-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.jan-product-card{
+  overflow:hidden;border:1px solid #e5e5e7;border-radius:18px;background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.07);
+}
+.jan-card-top{
+  min-height:110px;padding:18px;display:flex;align-items:center;justify-content:center;
+  font-size:42px;background:linear-gradient(135deg,#f7f7f8,#e9e9ec);
+}
+.jan-card-body{padding:17px}
+.jan-badge{
+  display:inline-block;border-radius:999px;background:#eef6ff;color:#0066cc;
+  padding:4px 9px;font-size:10px;font-weight:800;margin-bottom:8px;
+}
+.jan-color-name{margin:0 0 13px;font-size:18px;font-weight:800}
+.jan-detail-row{
+  display:grid;grid-template-columns:80px minmax(0,1fr);gap:10px;
+  padding:9px 0;border-top:1px solid #eee;font-size:12px;
+}
+.jan-label{color:#86868b}
+.jan-code-wrap{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.jan-code{min-width:0;font-weight:800;letter-spacing:.04em;word-break:break-all}
+.jan-copy-btn{
+  flex:0 0 auto;border:0;border-radius:999px;padding:7px 10px;background:#111;
+  color:#fff;font-size:10px;font-weight:800;cursor:pointer;
+}
+.jan-copy-btn.copied{background:#2f7d32}
+.jan-empty-note{
+  margin-top:12px;border-radius:12px;padding:11px 12px;background:#fff8e8;
+  color:#7a4b00;font-size:11px;line-height:1.6;
+}
+@media(max-width:700px){
+  .jan-page-header-inner{padding:0 12px;min-height:52px}
+  .jan-page-brand{font-size:14px}
+  .jan-container{padding:20px 12px 50px}
+  .jan-hero,.jan-size-section{padding:18px;border-radius:16px}
+  .jan-card-grid{grid-template-columns:1fr}
+  .jan-size-title{align-items:flex-start;flex-direction:column}
+}
+
+
+
+/* =================================
+   Apple Watch SE 3 JAN一覧
+   写真付き・GPS/Cellular色分け表
+================================= */
+.jan-button-group{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.se3-open-btn{background:#0071e3}
+.se3-open-btn:hover{background:#005bb5}
+
+#se3JanPage{
+  display:none;
+  min-height:100vh;
+  background:#f5f5f7;
+  color:#1d1d1f;
+}
+#se3JanPage.active{display:block}
+
+.se3-jan-wrap{
+  max-width:1500px;
+  margin:auto;
+  padding:28px 16px 70px;
+}
+
+.se3-jan-hero{
+  background:#fff;
+  border-radius:22px;
+  padding:24px;
+  margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+.se3-jan-hero h1{margin:0 0 6px;font-size:clamp(28px,4vw,42px)}
+.se3-jan-hero p{margin:0;color:#6e6e73;font-size:13px}
+.se3-source-note{margin-top:10px;font-size:11px;color:#86868b}
+
+.se3-table-wrap{
+  overflow-x:auto;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
+  border:1px solid #d9d9de;
+}
+
+.se3-jan-table{
+  width:100%;
+  min-width:1180px;
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+.se3-jan-table col.col-section{width:88px}
+.se3-jan-table col.col-photo{width:190px}
+.se3-jan-table col.col-item{width:105px}
+
+
+.se3-jan-table th,
+.se3-jan-table td{
+  border:1px solid #d9d9de;
+  padding:8px 10px;
+  text-align:center;
+  vertical-align:middle;
+  background:#fff;
+  font-size:13px;
+}
+
+.se3-jan-table thead th{
+  position:static;
+  font-weight:800;
+}
+
+.se3-title-head{
+  background:#fff!important;
+  color:#111!important;
+  font-size:17px!important;
+  letter-spacing:.02em;
+}
+
+.se3-label-head{
+  background:#f7f7f9!important;
+  color:#333!important;
+}
+.se3-section-head{background:#f7f7f9!important;color:#333!important}
+.se3-photo-head{background:#f7f7f9!important;color:#333!important}
+.se3-item-head{background:#f7f7f9!important;color:#333!important}
+
+.se3-model-gps{
+  background:#4472c4!important;
+  color:#fff!important;
+  font-size:15px!important;
+}
+
+.se3-model-cellular{
+  background:#f4b400!important;
+  color:#111!important;
+  font-size:15px!important;
+}
+
+.se3-size-head{
+  background:#fafafa!important;
+  color:#333!important;
+  font-size:13px!important;
+}
+
+.se3-row-label{
+  background:#fafafa!important;
+  font-weight:800;
+  color:#4a4a4d;
+}
+
+.se3-band-row td:not(.se3-row-label){
+  background:#f7f7f8!important;
+  font-weight:800;
+  color:#333;
+  padding:6px 8px;
+}
+
+.se3-color-label{
+  font-weight:900;
+  background:#f1f1f3!important;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  letter-spacing:.08em;
+}
+
+.se3-gps-cell{
+  background:#f3f7ff!important;
+}
+
+.se3-cellular-cell{
+  background:#fff9e8!important;
+}
+
+.se3-photo-cell{
+  padding:10px!important;
+  background:#fff!important;
+}
+
+.se3-photo-box{
+  width:100%;
+  min-height:165px;
+  border:1px dashed #b8b8bd;
+  border-radius:14px;
+  background:#f7f7f8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+
+.se3-photo-box img{
+  width:100%;
+  height:165px;
+  object-fit:contain;
+  display:block;
+  background:#fff;
+}
+
+.se3-photo-fallback{
+  padding:12px;
+  color:#86868b;
+  font-size:12px;
+  line-height:1.7;
+  text-align:center;
+}
+
+.se3-photo-fallback code{
+  display:block;
+  margin-top:5px;
+  font-size:10px;
+  word-break:break-all;
+}
+
+.se3-model-number{
+  font-weight:800;
+  letter-spacing:.02em;
+}
+
+.se3-jan-wrapcell{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.se3-copy-btn{
+  border:0;
+  border-radius:999px;
+  background:#111;
+  color:#fff;
+  padding:5px 9px;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+.se3-copy-btn.copied{background:#2f7d32}
+
+.se3-barcode{
+  width:100%;
+  height:54px;
+  display:block;
+  max-width:180px;
+  margin:0 auto;
+  background:#fff;
+}
+
+.se3-legend{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:0 0 12px;
+  font-size:12px;
+  font-weight:700;
+}
+.se3-legend span{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.se3-legend i{
+  width:14px;
+  height:14px;
+  border-radius:3px;
+  display:inline-block;
+}
+.se3-legend .gps i{background:#4472c4}
+.se3-legend .cellular i{background:#f4b400}
+
+@media(max-width:700px){
+  .jan-button-group{width:100%;justify-content:stretch}
+  .jan-button-group .jan-list-open-btn{flex:1}
+  .se3-jan-wrap{padding:18px 10px 50px}
+  .se3-jan-hero{padding:18px;border-radius:16px}
+  .se3-jan-table{min-width:980px}
+  .se3-photo-box,.se3-photo-box img{min-height:130px;height:130px}
+}
 </style>
 </head>
 <body>
+<div id="comparisonPage">
+
 
 <header class="header">
   <div class="header-inner">
@@ -230,8 +758,15 @@ section{scroll-margin-top:78px}
   <p class="lead">Nonofficial </p>
 
   <section id="applewatch">
-    <h2>Apple Watch Ultra 4 vs Ultra 3</h2>
-    <div class="table-wrap">
+    
+    <div class="compare-title-row">
+      <h2>Apple Watch Ultra 4 vs Ultra 3</h2>
+      <div class="jan-button-group">
+        <button class="jan-list-open-btn" type="button" onclick="openJanPage()">Ultra 3 JANコード →</button>
+        <button class="jan-list-open-btn se3-open-btn" type="button" onclick="openSE3JanPage()">SE 3 JANコード →</button>
+      </div>
+    </div>
+<div class="table-wrap">
     <table>
       <thead><tr><th>項目</th><th>Apple Watch Ultra 3</th><th>Apple Watch Ultra 4</th></tr></thead>
       <tbody>
@@ -243,6 +778,27 @@ section{scroll-margin-top:78px}
         <tr><td>低電力モード</td><td class="old">最大72時間</td><td class="new change">最大84時間</td></tr>
         <tr><td>急速充電</td><td class="old">約45分で0から80％充電<br>15分充電で最大12時間</td><td class="new change">約45分で0から80％充電<br>15分充電で最大18時間</br></td></tr>
         <tr><td>サイズ</td><td class="old">49 × 44 × 12mm</td><td class="new">49 × 44 × 12mm</td></tr>
+        <tr>
+          <td>JANコード<span class="jan-hint">文字を押すと詳細表示</span></td>
+          <td class="old">
+            <button class="jan-link" type="button" onclick="toggleJan('jan-ultra3')">JANコード</button>
+            <div id="jan-ultra3" class="jan-detail">
+              <div><strong>機種</strong>Apple Watch Ultra 3</div>
+              <div><strong>サイズ</strong>49mm（49 × 44 × 12mm）</div>
+              <div><strong>カラー</strong>ナチュラルチタニウム / ブラックチタニウム</div>
+              <div><strong>JAN</strong>未登録（JAN番号を入力してください）</div>
+            </div>
+          </td>
+          <td class="new">
+            <button class="jan-link" type="button" onclick="toggleJan('jan-ultra4')">JANコード</button>
+            <div id="jan-ultra4" class="jan-detail">
+              <div><strong>機種</strong>Apple Watch Ultra 4</div>
+              <div><strong>サイズ</strong>49mm（49 × 44 × 12mm）</div>
+              <div><strong>カラー</strong>ナチュラルチタニウム / ブラックチタニウム</div>
+              <div><strong>JAN</strong>未登録（JAN番号を入力してください）</div>
+            </div>
+          </td>
+        </tr>
         <tr>
     <td rowspan="2">
         重量<br>
@@ -497,6 +1053,289 @@ section{scroll-margin-top:78px}
   <footer>このページは、Apple.comのデータベースを参照しています。</footer>
 </div>
 
+
+</div>
+
+<section id="janPage">
+  <div class="jan-page-header">
+    <div class="jan-page-header-inner">
+      <div class="jan-page-brand">Apple Watch Ultra 3 JAN一覧</div>
+      <button class="jan-back-btn" type="button" onclick="closeJanPage()">← 比較表に戻る</button>
+    </div>
+  </div>
+  <div class="jan-container">
+    
+  <section class="jan-hero">
+    <h1>Apple Watch Ultra 3</h1>
+    <p>通信タイプ → サイズ → カラー別に、型番とJANコードを確認できます。JANコードはワンクリックでコピーできます。</p>
+  </section>
+
+  <div class="jan-tabs" role="tablist" aria-label="通信タイプ">
+    <button class="jan-tab-btn active" type="button" data-target="gps-panel">GPS</button>
+    <button class="jan-tab-btn" type="button" data-target="cellular-panel">GPS + Cellular</button>
+  </div>
+
+  <!-- GPS -->
+  <div id="gps-panel" class="jan-type-panel active">
+    <section class="jan-size-section">
+      <div class="jan-size-title">
+        <h2>49mm</h2>
+        <span>GPS</span>
+      </div>
+
+      <div class="jan-card-grid">
+        <article class="jan-product-card">
+          <div class="jan-card-top">⌚</div>
+          <div class="jan-card-body">
+            <span class="jan-badge">49mm / GPS</span>
+            <h3 class="jan-color-name">ナチュラルチタニウム</h3>
+            <div class="jan-detail-row"><span class="jan-label">型番</span><strong>未登録</strong></div>
+            <div class="jan-detail-row">
+              <span class="jan-label">JANコード</span>
+              <div class="jan-code-wrap">
+                <span class="jan-code">未登録</span>
+                <button class="jan-copy-btn" type="button" data-copy="">コピー</button>
+              </div>
+            </div>
+            <div class="jan-empty-note">型番・JANコードは元データに記載がないため未登録です。値を差し替えるだけで利用できます。</div>
+          </div>
+        </article>
+
+        <article class="jan-product-card">
+          <div class="jan-card-top">⌚</div>
+          <div class="jan-card-body">
+            <span class="jan-badge">49mm / GPS</span>
+            <h3 class="jan-color-name">ブラックチタニウム</h3>
+            <div class="jan-detail-row"><span class="jan-label">型番</span><strong>未登録</strong></div>
+            <div class="jan-detail-row">
+              <span class="jan-label">JANコード</span>
+              <div class="jan-code-wrap">
+                <span class="jan-code">未登録</span>
+                <button class="jan-copy-btn" type="button" data-copy="">コピー</button>
+              </div>
+            </div>
+            <div class="jan-empty-note">型番・JANコードは元データに記載がないため未登録です。値を差し替えるだけで利用できます。</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <!-- GPS + Cellular -->
+  <div id="cellular-panel" class="jan-type-panel">
+    <section class="jan-size-section">
+      <div class="jan-size-title">
+        <h2>49mm</h2>
+        <span>GPS + Cellular</span>
+      </div>
+
+      <div class="jan-card-grid">
+        <article class="jan-product-card">
+          <div class="jan-card-top">⌚</div>
+          <div class="jan-card-body">
+            <span class="jan-badge">49mm / GPS + Cellular</span>
+            <h3 class="jan-color-name">ナチュラルチタニウム</h3>
+            <div class="jan-detail-row"><span class="jan-label">型番</span><strong>未登録</strong></div>
+            <div class="jan-detail-row">
+              <span class="jan-label">JANコード</span>
+              <div class="jan-code-wrap">
+                <span class="jan-code">未登録</span>
+                <button class="jan-copy-btn" type="button" data-copy="">コピー</button>
+              </div>
+            </div>
+            <div class="jan-empty-note">型番・JANコードは元データに記載がないため未登録です。値を差し替えるだけで利用できます。</div>
+          </div>
+        </article>
+
+        <article class="jan-product-card">
+          <div class="jan-card-top">⌚</div>
+          <div class="jan-card-body">
+            <span class="jan-badge">49mm / GPS + Cellular</span>
+            <h3 class="jan-color-name">ブラックチタニウム</h3>
+            <div class="jan-detail-row"><span class="jan-label">型番</span><strong>未登録</strong></div>
+            <div class="jan-detail-row">
+              <span class="jan-label">JANコード</span>
+              <div class="jan-code-wrap">
+                <span class="jan-code">未登録</span>
+                <button class="jan-copy-btn" type="button" data-copy="">コピー</button>
+              </div>
+            </div>
+            <div class="jan-empty-note">型番・JANコードは元データに記載がないため未登録です。値を差し替えるだけで利用できます。</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <footer>JANコード・型番は、実際の販売SKUに合わせて登録してください。</footer>
+
+  </div>
+</section>
+
+<section id="se3JanPage">
+  <div class="jan-page-header">
+    <div class="jan-page-header-inner">
+      <div class="jan-page-brand">Apple Watch SE 3 JAN一覧</div>
+      <button class="jan-back-btn" type="button" onclick="closeSE3JanPage()">← 比較表に戻る</button>
+    </div>
+  </div>
+
+  <div class="se3-jan-wrap">
+    <section class="se3-jan-hero">
+      <h1>Apple Watch SE 3</h1>
+      <p>同じカラーは商品写真1枚にまとめ、GPS / GPS＋Cellular・40mm / 44mmを横並びで確認できます。</p>
+      <div class="se3-source-note">
+        写真ファイル：images/applewatch-se3-starlight.jpg / images/applewatch-se3-midnight.jpg
+      </div>
+    </section>
+
+    <div class="se3-legend" aria-label="色分け">
+      <span class="gps"><i></i>GPS</span>
+      <span class="cellular"><i></i>GPS＋Cellular</span>
+    </div>
+
+    <div class="se3-table-wrap">
+      <table class="se3-jan-table">
+        <colgroup>
+          <col class="col-section">
+          <col class="col-photo">
+          <col class="col-item">
+          <col>
+          <col>
+          <col>
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="se3-title-head" colspan="7">Apple Watch SE 3</th>
+          </tr>
+          <tr>
+            <th class="se3-section-head">カラー</th>
+            <th class="se3-photo-head">商品写真</th>
+            <th class="se3-item-head">モデル</th>
+            <th class="se3-model-gps" colspan="2">GPS</th>
+            <th class="se3-model-cellular" colspan="2">GPS＋Cellular</th>
+          </tr>
+          <tr>
+            <th class="se3-section-head"></th>
+            <th class="se3-photo-head"></th>
+            <th class="se3-item-head">サイズ</th>
+            <th class="se3-size-head">40mm</th>
+            <th class="se3-size-head">44mm</th>
+            <th class="se3-size-head">40mm</th>
+            <th class="se3-size-head">44mm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="se3-band-row"><td class="se3-color-label" rowspan="8">スターライト</td><td class="se3-photo-cell" rowspan="8">
+  <div class="se3-photo-box">
+    <img src="images/applewatch-se3-starlight.jpg" alt="Apple Watch SE 3 スターライト"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="se3-photo-fallback" style="display:none">
+      スターライトの商品写真<br>
+      <code>images/applewatch-se3-starlight.jpg</code>
+    </div>
+  </div>
+</td><td class="se3-row-label">色＋バンドサイズ</td><td colspan="4">スターライト / S/M</td></tr><tr><td class="se3-row-label">型番</td><td class="se3-gps-cell"><span class="se3-model-number">MEH34J/A</span></td><td class="se3-gps-cell"><span class="se3-model-number">MEHG4J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEP64J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEPE4J/A</span></td></tr><tr><td class="se3-row-label">バーコード</td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615388" role="img" aria-label="JAN 4549995615388 バーコード"></svg></td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615449" role="img" aria-label="JAN 4549995615449 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995618761" role="img" aria-label="JAN 4549995618761 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995619003" role="img" aria-label="JAN 4549995619003 バーコード"></svg></td></tr><tr><td class="se3-row-label">JANコード</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615388</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615388">コピー</button>
+  </div>
+</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615449</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615449">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995618761</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995618761">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995619003</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995619003">コピー</button>
+  </div>
+</td></tr><tr class="se3-band-row"><td class="se3-row-label">色＋バンドサイズ</td><td colspan="4">スターライト / M/L</td></tr><tr><td class="se3-row-label">型番</td><td class="se3-gps-cell"><span class="se3-model-number">MEH54J/A</span></td><td class="se3-gps-cell"><span class="se3-model-number">MEHJ4J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEP74J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEPF4J/A</span></td></tr><tr><td class="se3-row-label">バーコード</td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615395" role="img" aria-label="JAN 4549995615395 バーコード"></svg></td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615456" role="img" aria-label="JAN 4549995615456 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995618808" role="img" aria-label="JAN 4549995618808 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995619041" role="img" aria-label="JAN 4549995619041 バーコード"></svg></td></tr><tr><td class="se3-row-label">JANコード</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615395</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615395">コピー</button>
+  </div>
+</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615456</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615456">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995618808</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995618808">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995619041</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995619041">コピー</button>
+  </div>
+</td></tr><tr class="se3-band-row"><td class="se3-color-label" rowspan="8">ミッドナイト</td><td class="se3-photo-cell" rowspan="8">
+  <div class="se3-photo-box">
+    <img src="images/applewatch-se3-midnight.jpg" alt="Apple Watch SE 3 ミッドナイト"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="se3-photo-fallback" style="display:none">
+      ミッドナイトの商品写真<br>
+      <code>images/applewatch-se3-midnight.jpg</code>
+    </div>
+  </div>
+</td><td class="se3-row-label">色＋バンドサイズ</td><td colspan="4">ミッドナイト / S/M</td></tr><tr><td class="se3-row-label">型番</td><td class="se3-gps-cell"><span class="se3-model-number">MEH94J/A</span></td><td class="se3-gps-cell"><span class="se3-model-number">MEHN4J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEP94J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEPH4J/A</span></td></tr><tr><td class="se3-row-label">バーコード</td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615418" role="img" aria-label="JAN 4549995615418 バーコード"></svg></td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615470" role="img" aria-label="JAN 4549995615470 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995618884" role="img" aria-label="JAN 4549995618884 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995619126" role="img" aria-label="JAN 4549995619126 バーコード"></svg></td></tr><tr><td class="se3-row-label">JANコード</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615418</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615418">コピー</button>
+  </div>
+</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615470</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615470">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995618884</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995618884">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995619126</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995619126">コピー</button>
+  </div>
+</td></tr><tr class="se3-band-row"><td class="se3-row-label">色＋バンドサイズ</td><td colspan="4">ミッドナイト / M/L</td></tr><tr><td class="se3-row-label">型番</td><td class="se3-gps-cell"><span class="se3-model-number">MEHC4J/A</span></td><td class="se3-gps-cell"><span class="se3-model-number">MEHQ4J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEPC4J/A</span></td><td class="se3-cellular-cell"><span class="se3-model-number">MEPJ4J/A</span></td></tr><tr><td class="se3-row-label">バーコード</td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615425" role="img" aria-label="JAN 4549995615425 バーコード"></svg></td><td class="se3-gps-cell"><svg class="se3-barcode" data-ean="4549995615487" role="img" aria-label="JAN 4549995615487 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995618921" role="img" aria-label="JAN 4549995618921 バーコード"></svg></td><td class="se3-cellular-cell"><svg class="se3-barcode" data-ean="4549995619164" role="img" aria-label="JAN 4549995619164 バーコード"></svg></td></tr><tr><td class="se3-row-label">JANコード</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615425</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615425">コピー</button>
+  </div>
+</td><td class="se3-gps-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995615487</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995615487">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995618921</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995618921">コピー</button>
+  </div>
+</td><td class="se3-cellular-cell">
+  <div class="se3-jan-wrapcell">
+    <strong>4549995619164</strong>
+    <button class="se3-copy-btn" type="button" data-copy="4549995619164">コピー</button>
+  </div>
+</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      GPSは青、GPS＋Cellularは黄色で色分けしています。同じカラーではS/M・M/L共通で写真1枚を表示します。
+    </footer>
+  </div>
+</section>
+
 <script>
 function toggleNote(id, button){
   const note = document.getElementById(id);
@@ -527,7 +1366,159 @@ function toggleNote(id, button){
     });
   }
 }
+
+function toggleJan(id){
+  const detail = document.getElementById(id);
+  if(!detail) return;
+  detail.classList.toggle("open");
+}
+
+
+function toggleUltra3JanList(button){
+  const panel = document.getElementById("ultra3-jan-list");
+  if(!panel) return;
+
+  const open = panel.classList.toggle("open");
+  panel.setAttribute("aria-hidden", open ? "false" : "true");
+
+  if(button){
+    button.setAttribute("aria-expanded", open ? "true" : "false");
+    button.textContent = open ? "JANコード一覧を閉じる" : "JANコード一覧";
+  }
+
+  if(open){
+    requestAnimationFrame(() => {
+      panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+    });
+  }
+}
+
+function closeUltra3JanList(){
+  const panel = document.getElementById("ultra3-jan-list");
+  const button = document.querySelector(
+    '.jan-list-open-btn[aria-controls="ultra3-jan-list"]'
+  );
+
+  if(panel){
+    panel.classList.remove("open");
+    panel.setAttribute("aria-hidden","true");
+  }
+
+  if(button){
+    button.setAttribute("aria-expanded","false");
+    button.textContent = "JANコード一覧";
+  }
+}
+
 </script>
 
+
+
+<script>
+function openJanPage(){
+  const comparison = document.getElementById("comparisonPage");
+  const jan = document.getElementById("janPage");
+  if(comparison) comparison.classList.add("hidden-page");
+  if(jan) jan.classList.add("active");
+  window.scrollTo({top:0, behavior:"auto"});
+}
+function closeJanPage(){
+  const comparison = document.getElementById("comparisonPage");
+  const jan = document.getElementById("janPage");
+  if(jan) jan.classList.remove("active");
+  if(comparison) comparison.classList.remove("hidden-page");
+  window.scrollTo({top:0, behavior:"auto"});
+}
+
+document.querySelectorAll(".jan-tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".jan-tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".jan-type-panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    const panel = document.getElementById(btn.dataset.target);
+    if(panel) panel.classList.add("active");
+  });
+});
+
+async function copyJanText(text, button){
+  if(!text){
+    const old = button.textContent;
+    button.textContent = "未登録";
+    setTimeout(() => button.textContent = old, 1200);
+    return;
+  }
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(e){
+    const temp = document.createElement("textarea");
+    temp.value = text;
+    temp.style.position = "fixed";
+    temp.style.opacity = "0";
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand("copy");
+    temp.remove();
+  }
+  button.classList.add("copied");
+  button.textContent = "コピー済み";
+  setTimeout(() => {
+    button.classList.remove("copied");
+    button.textContent = "コピー";
+  }, 1400);
+}
+
+document.querySelectorAll(".jan-copy-btn").forEach(button => {
+  button.addEventListener("click", () => copyJanText(button.dataset.copy, button));
+});
+
+function openSE3JanPage(){
+  const comparison=document.getElementById("comparisonPage");
+  const page=document.getElementById("se3JanPage");
+  const ultra=document.getElementById("janPage");
+  if(comparison) comparison.classList.add("hidden-page");
+  if(ultra) ultra.classList.remove("active");
+  if(page) page.classList.add("active");
+  renderAllSE3Barcodes();
+  window.scrollTo({top:0,behavior:"auto"});
+}
+function closeSE3JanPage(){
+  const comparison=document.getElementById("comparisonPage");
+  const page=document.getElementById("se3JanPage");
+  if(page) page.classList.remove("active");
+  if(comparison) comparison.classList.remove("hidden-page");
+  window.scrollTo({top:0,behavior:"auto"});
+}
+
+// EAN-13 / JAN-13 barcode renderer (外部ライブラリ不要)
+function renderEAN13(svg, code){
+  if(!/^\d{13}$/.test(code)) return;
+  const L={0:"0001101",1:"0011001",2:"0010011",3:"0111101",4:"0100011",5:"0110001",6:"0101111",7:"0111011",8:"0110111",9:"0001011"};
+  const G={0:"0100111",1:"0110011",2:"0011011",3:"0100001",4:"0011101",5:"0111001",6:"0000101",7:"0010001",8:"0001001",9:"0010111"};
+  const R={0:"1110010",1:"1100110",2:"1101100",3:"1000010",4:"1011100",5:"1001110",6:"1010000",7:"1000100",8:"1001000",9:"1110100"};
+  const parity=["LLLLLL","LLGLGG","LLGGLG","LLGGGL","LGLLGG","LGGLLG","LGGGLL","LGLGLG","LGLGGL","LGGLGL"];
+  let bits="101";
+  const p=parity[+code[0]];
+  for(let i=1;i<=6;i++) bits+=(p[i-1]==="L"?L:G)[+code[i]];
+  bits+="01010";
+  for(let i=7;i<=12;i++) bits+=R[+code[i]];
+  bits+="101";
+  const quiet=10, module=2, h=44, textH=16, total=(bits.length+quiet*2)*module;
+  svg.setAttribute("viewBox",`0 0 ${total} ${h+textH}`);
+  svg.innerHTML="";
+  const ns="http://www.w3.org/2000/svg";
+  const bg=document.createElementNS(ns,"rect"); bg.setAttribute("width",total); bg.setAttribute("height",h+textH); bg.setAttribute("fill","white"); svg.appendChild(bg);
+  for(let i=0;i<bits.length;i++) if(bits[i]==="1"){const r=document.createElementNS(ns,"rect");r.setAttribute("x",(quiet+i)*module);r.setAttribute("y","0");r.setAttribute("width",module);r.setAttribute("height",h);r.setAttribute("fill","black");svg.appendChild(r)}
+  const t=document.createElementNS(ns,"text");t.setAttribute("x",total/2);t.setAttribute("y",h+13);t.setAttribute("text-anchor","middle");t.setAttribute("font-size","11");t.setAttribute("font-family","Arial, sans-serif");t.textContent=code;svg.appendChild(t);
+}
+function renderAllSE3Barcodes(){
+  document.querySelectorAll("#se3JanPage .se3-barcode[data-ean]").forEach(svg=>renderEAN13(svg,svg.dataset.ean));
+}
+
+document.querySelectorAll(".se3-copy-btn").forEach(button=>{
+  button.addEventListener("click",()=>copyJanText(button.dataset.copy,button));
+});
+renderAllSE3Barcodes();
+
+</script>
 </body>
 </html>
